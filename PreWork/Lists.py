@@ -84,6 +84,19 @@ fellowship.append('legolas')
 print(str(len(fellowship)) + ' guests are coming for dinner this Friday.')
 
 #3.10 Super list, Spellbook!
+print('\n\n\n')
+spells = ['truesight','fireball','zap']
 
-
-
+del spells[0]
+forgot=spells.pop()
+print(forgot + ' has been forgotten from your spellbook')
+spells.insert(0,'haste')
+spells.sort()
+spells.reverse()
+spells.insert(2,'Cloud of Daggers')
+print(spells[2] + ' has been learned!')
+spells.append('polymorph')
+num_spells = len(spells)
+last_spell = num_spells-1
+print(last_spell)
+print('You know ' + str(num_spells) + ' spells. The last spell you learned was ' + spells[last_spell])
