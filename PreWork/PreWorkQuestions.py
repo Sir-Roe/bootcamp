@@ -5,7 +5,9 @@
 def hello_name(user_name):
         print('Hello ' + user_name +'!')
 
-hello_name('Logan')
+
+#my test data below
+#hello_name('Logan')
 
 
 #Question 2
@@ -14,7 +16,9 @@ hello_name('Logan')
 def first_odds():
     odd_num = list(range(1,100,2))
     print(odd_num)
-first_odds()
+
+#code used to test below
+#first_odds()
 
 
 #Question 3
