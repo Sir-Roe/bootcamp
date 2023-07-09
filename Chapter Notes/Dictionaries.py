@@ -85,11 +85,4 @@ Bilbo = {
         }
     }
 
-print('\nRandom Testing\n--------------------')
 
-a_list=[]
-
-for k ,v in Bilbo['items'].items():
-        if k== "sword" or k=="armor":
-             a_list.append(v)
-print(a_list)
