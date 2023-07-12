@@ -1,0 +1,19 @@
+Continuous:Variables that can take on any numerical value 
+    (histograms/scatter plots)
+Discrete: Count of a Characteristic,result,itme or action. positive Integers not divided into smaller increments
+    (box plot, bar chart) 
+Categorical:Data that fits into categories. Interested in ratios and proportions of this data.
+    (stacked Bar Chart, Pie Chart)
+Nominal: Categorical data with no inherent order or structure (gender,hair,eye,nationality)
+    (bar,pie chart or histograms)
+Ordinal: Categorical data with an inherent order or structure (educatioj level,shirt size,rating scales)
+    bar charts histogrrams or line charts
+Binary Data: true or false , 
+    (Bar Chart or Pie chart)
+
+Qualitative Data:
+    descriptor data, non numerical data (opinions feelings beliefs or attitudes)
+
+Quantitative Data:
+    Numerical Data measurements  or counts.(height,weight,age,income,test scores)
+
