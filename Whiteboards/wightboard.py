@@ -51,12 +51,3 @@ def initials(name):
 
 print(initials('Logan machail roe'))
 
-
-is_p =input('type p or somethin idc my bff jill? ')
-check_p =False
-
-for c in is_p.lower():
-    if c == 'p':
-        check_p = True
-
-print(check_p)
