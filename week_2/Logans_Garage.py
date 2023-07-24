@@ -21,6 +21,7 @@ class ParkingGarage():
 
     def openBusiness(self):
         self.Open = True
+        self.parkingSpace = self.parkMax
 
     def takeTicket(self):
         #this will generate the ticket logic, determine if
@@ -59,16 +60,18 @@ class ParkingGarage():
         if ticketnum.upper()  in [i for i in self.tickets]:
             if self.tickets[ticketnum] == True:
                 self.parkingSpace += 1
+                del self.tickets[ticketnum]
                 print("Please drive forward, Enjoy your day")
             else:
         #if it isn't paid prompt the paying of the ticket!        
                 print("please insert your card and enter payment value here")
                 self.payForParking(ticketnum)
+                del self.tickets[ticketnum]
         else:
         #if the ticket is invalid or unreadable ask for the confirmation
         #on the lost ticket $20 charge
             while True:
-                request = input('Invalid Ticket: Please enter "y" to pay $20 lost ticket fee to exit : ')
+                request = input('Ticket lost?: Please enter "y" to pay $20 lost ticket fee to exit : ')
                 if request.lower() == 'y':
                     self.parkingSpace += 1
                     print("Please drive forward, Enjoy your day")
@@ -81,9 +84,11 @@ class ParkingGarage():
     def closeBusiness(self):
         self.tickets ={} #clear the ticket cache 
         print('There were ' + str(self.parkMax-self.parkingSpace) + ' cars towed!')
-        self.parkingSpace = 100 #tow all cars 
+        self.parkingSpace = self.parkMax #tow all cars 
         self.Open = False
+        self.viewSales()
         
+#------------------------------------------Testing---------------------------------------------------------#
 
 logans_lot = ParkingGarage()
 
@@ -97,8 +102,13 @@ logans_lot.takeTicket()
 logans_lot.takeTicket()
 logans_lot.takeTicket()
 logans_lot.payForParking('LG#2')
+#shows you cannot double pay for a ticket
 logans_lot.payForParking('LG#2')
 logans_lot.leaveGarage('LG#2')
+#invalid ticket triggers lost ticket when you try to leave the garage
 logans_lot.leaveGarage('LG#15')
+#cannot use the same ticket twice to leave the garage
+#this will trigger the lost ticket at the garage leave function
+logans_lot.leaveGarage('LG#3')
 logans_lot.leaveGarage('LG#3')
 logans_lot.closeBusiness()
