@@ -1,13 +1,15 @@
+from io import BytesIO
+from PIL import Image
 import requests
 import pandas as pd
-from PIL import Image
-from io import BytesIO
+
+
 
 def create_disneydf():
     #I would likelt change this to be more dynamic of a url to get count in the future
     #or set the number to 1000000 since it auto changes it to the max count of characters. 
     #but that also depends on performance.
-    url = f'https://api.disneyapi.dev/character?page=1&pageSize=8000'
+    url = 'https://api.disneyapi.dev/character?page=1&pageSize=8000'
     response= requests.get(url)
     #creating a counting variable
     max_cnt=response.json()['info']['count']
@@ -16,7 +18,7 @@ def create_disneydf():
 
 
     #columns list for PANDA PANDA PANDA PANDA
-    c=['name','allies','ally_count','enemies','enemy_count','films','film_count','tv_shows','show_count','park_attractions','ride_count','image_blob']
+    c=['disney_id','name','allies','ally_count','enemies','enemy_count','films','film_count','tv_shows','show_count','park_attractions','ride_count','image_blob']
     df = pd.DataFrame(columns=c)
 
     for cnt in range(max_cnt):
@@ -26,6 +28,9 @@ def create_disneydf():
         str1=''
         #initialize variables needed to create rows
         
+
+        #disney_id (there are dupe names that are sep chars)
+        row.append(my_data[cnt]['_id'])
         #name of character
         row.append(my_data[cnt]['name'])
         #allies
@@ -89,7 +94,7 @@ def get_image(n,df):
                 output_image_path = 'output_image.jpg'
                 img.save(output_image_path)
                 #display image
-                display(img)
+                img.show()
             except:
                 print('Image not found')
         return print(f'Here is {n}, they belong to {len(ndf)} characters(s)')
