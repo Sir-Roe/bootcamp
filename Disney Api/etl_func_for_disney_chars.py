@@ -69,6 +69,8 @@ def removal_criteria(df):
     #remove any characters that don't exist in shows, movies, or as a ride
     mask = (df['show_count']==0)&(df['film_count']==0)&(df['ride_count']==0)
     df.drop(df[mask].index, inplace=True)
+    #removing the enemy and ally count of the data since I discovered it was completely empty
+    df = df.drop(df.columns[[2,3,4,5,6]], axis=1)
     return df
 
 def update_data_sql(df):
