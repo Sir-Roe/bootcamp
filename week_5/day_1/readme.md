@@ -8,4 +8,4 @@ We were told what kind of information was available and was given free reign on 
 
 ### ERD
 
-![]https://github.com/Sir-Roe/bootcamp/blob/main/week_5/day_1/ERD.png
+!()[]https://github.com/Sir-Roe/bootcamp/blob/main/week_5/day_1/ERD.png
