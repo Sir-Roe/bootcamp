@@ -55,7 +55,7 @@ class TSQL:
             f.close()
         return sql_file
 
-  
+
 titan = TSQL()
 titan.create_dataframe()
 titan.update_data_sql()
