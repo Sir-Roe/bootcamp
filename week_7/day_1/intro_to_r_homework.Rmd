@@ -1,0 +1,57 @@
+## Homework
+
+1.  Create an array of two 3x3 matrices from the given vectors.
+
+    ```{r}
+    vec1 <- c(1, 2, 3, 4, 5, 6, 7, 8, 9)
+    vec2 <- c(10, 11, 12, 13, 14, 15, 16, 17, 18)
+    matrix1 <- matrix(
+              vec1,
+              nrow =3,
+              ncol =3,
+            )
+            
+            
+    matrix2 <- matrix(
+              vec2,
+              nrow =3,
+              ncol =3,
+            )
+    
+    matrix1
+    matrix2
+    ```
+
+2.  In the above matrix that you created, print the value 5 by indexing in to the matrix.
+
+    ```{r}
+matrix1[2,2]
+    ```
+
+3.  Print the third row of the first matrix.
+
+    ```{r}
+matrix1[3,]
+    ```
+
+4.  Print the second column of both matrices.
+
+    ```{r}
+matrix1[,2]
+matrix2[,2]
+    ```
+
+5.  Create two strings with your first and last name, respectively. Then concatenate them, and print the new value as "My name is \<your newly created concatenated variable will go here\>"
+
+    ```{r}
+str1 <- "Logan"
+str2 <- "Roe"
+str3 <- paste(str1,str2)
+sprintf("My name is %s", str3)
+    ```
+
+6.  What values can a BOOLEAN contain?
+
+    ```{r}
+sprintf("BOOLEAN are %i or %i , also known as %s or %s", TRUE, FALSE, 'TRUE','FALSE')
+    ```
