@@ -21,14 +21,6 @@ Names are separated by exactly one space in the input, without leading or traili
 #split the string into a list object, spaces = new name,if value is the last value in the string, last word is last word with space before 
 
 
-
-
-
-
-
-
-
-
 #Step 3: execute: 
 def initials(name):
     word_list=name.split()
