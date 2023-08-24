@@ -39,6 +39,8 @@ clean_cols <- function(x){
 df <- clean_cols(df)
 df %>% summarize(na_count = sum(is.na(df)))
 colSums(is.na(df))
+#convert Metascore to % 
+df <-  df%>%mutate(Metascore =(Metascore/100))
 ```
 
 ```{r}
@@ -54,13 +56,15 @@ view(filtered_df)
 ```
 
 ```{r}
+
+#Filter out Nulls
 cdf <- df %>%
   filter(!is.na(Metascore),!is.na(Critic_Compound_Score))
-cdf
-```
 
-```{r}
 
+
+mean(cdf$Metascore)
+mean(cdf$User_Compound_Score)
 ```
 
 **Filtering Criteria**
@@ -75,9 +79,9 @@ Critic and User scores are both Sentiment Analysis scores based on the reviews w
 
 **My Hypothesis:**
 
-H0: *µ*  MetaScore will not increase based on a better Sentiment User Score
+H0: *µ*  User sentiment scores have **no effect** on the Metascore
 
-H1: *µ* MetaScore will increase based on a better Sentiment User Score
+H1: *µ* User sentiment scores have **directly effect** on the Metascore
 
 ```{r}
 summary(lm(cdf$Metascore~cdf$User_Compound_Score))
@@ -116,9 +120,7 @@ Let's do a multi-varient analysis to see if there any strong correlations anywhe
 cdf <- cdf%>%select(Metascore,User_Compound_Score,Critic_Compound_Score,Release_Year)
 
 cdf$Release_Year <- as.integer(cdf$Release_Year)
-```
 
-```{r}
 round(cor(cdf), 2)
 ```
 
