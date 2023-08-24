@@ -353,7 +353,7 @@ Once the coefficients are estimated, the logistic regression model can be used t
 The predicted probability can be interpreted as the probability of the binary outcome being 1, given the values of the predictor variables.
 
 ```{r}
-df <- read.csv("C:/Users/Alex Lucchesi/coding-temple/coding_temple_data_analytics_ft/week-3/data/Titanic.csv")
+df <- read.csv("C:/Users/Logan/Documents/GitHub/bootcamp/week_5/homework_5_1.py/titanic.csv")
 ```
 
 ```{r}

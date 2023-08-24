@@ -1,0 +1,140 @@
+---
+title: "Loan Data"
+author: "Logan Roe"
+date: "2023-08-24"
+output: html_document
+---
+
+**IMPORT LIBRARIES**
+
+```{r}
+library(tidyverse)
+```
+
+```{r}
+df = read.csv("C:/Users/Logan/Documents/GitHub/bootcamp/week_7/loan_project/Anonymize_Loan_Default_data.csv",stringsAsFactors=FALSE, fileEncoding="latin1")
+```
+
+![]()
+
+```{r}
+?read.csv
+```
+
+```{r}
+
+```
+
+**Tidy Data**
+
+*drop X column*
+
+*drop first row*
+
+*data types follow format*
+
+checkand replace nulls
+
+```{r}
+df <- select(df, -X)
+```
+
+```{r}
+df <- select(df, -zip_code)
+```
+
+```{r}
+df <- select(df, -next_pymnt_d)
+```
+
+```{r}
+df <- select(df, -mths_since_last_delinq)
+```
+
+```{r}
+df <- filter(df, id!= 2)
+
+```
+
+```{r}
+glimpse(df)
+```
+
+```{r}
+df %>% summarize(na_count = sum(is.na(df)))
+colSums(is.na(df))
+
+```
+
+After Investigating the NULL Values we dropped the problem variables to maintain the majority of our data.
+
+```{r}
+df = na.exclude(df)
+```
+
+**EXPLORE**
+
+Gather information:
+
+Decide on independent/dependent variables
+
+Decide on stat/model test
+
+Descriptive Statistics
+
+Visualization of Columns
+
+####Deciding on Independent and Dependent Variables:
+
+interest rate impacts term length
+
+there isnt a significant relationship between the interest rate and the term length.
+
+there is a significant relationship between the interest rate and the term length.
+
+```{r}
+ggplot(df)+
+  geom_bar(aes(term))
+```
+
+```{r}
+ggplot(df)+
+  geom_bar(mapping= aes(log(int_rate)))
+```
+
+```{r}
+ggplot(df)+
+  geom_point(mapping = aes(installment,int_rate))
+```
+
+```{r}
+cor(df$installment,df$int_rate)
+```
+
+```{r}
+ggplot(df)+
+  geom_point(mapping = aes(annual_inc,int_rate))
+```
+
+```{r}
+ndf <- select_if(df, is.numeric)
+```
+
+```{r}
+round(cor(ndf), 2)
+
+```
+
+Gather stats on Int_Rate on the column
+
+```{r}
+summary(df$int_rate)
+```
+
+**ANALYZE**
+
+build
+
+```{r}
+glm(df$total_pymnt~df$int_rate)
+```
