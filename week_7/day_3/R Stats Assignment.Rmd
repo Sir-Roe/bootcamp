@@ -26,7 +26,7 @@ library(dplyr)
 ```
 
 ```{r}
-df <- read.csv('C:/Users/lmpro/Documents/GitHub/bootcamp/week_7/day_3/Call of Duty Reviews.csv')
+df <- read.csv('C:/Users/logan/Documents/GitHub/bootcamp/week_7/day_3/Call of Duty Reviews.csv')
 
 ```
 
@@ -53,6 +53,16 @@ filtered_df <- df %>%
 view(filtered_df)
 ```
 
+```{r}
+cdf <- df %>%
+  filter(!is.na(Metascore),!is.na(Critic_Compound_Score))
+cdf
+```
+
+```{r}
+
+```
+
 **Filtering Criteria**
 
 After looking through the data, I want to filter out any NULL score values.
@@ -67,13 +77,7 @@ Critic and User scores are both Sentiment Analysis scores based on the reviews w
 
 H0: *µ*  MetaScore will not increase based on a better Sentiment User Score
 
-H\`: *µ* MetaScore will increase based on a better Sentiment User Score
-
-```{r}
-cdf <- df %>%
-  filter(!is.na(Metascore),!is.na(Critic_Compound_Score))
-cdf
-```
+H1: *µ* MetaScore will increase based on a better Sentiment User Score
 
 ```{r}
 summary(lm(cdf$Metascore~cdf$User_Compound_Score))
@@ -106,7 +110,7 @@ cdf <- df %>%
 
 ```
 
-Let's do a multi-varient analysis to see if there any strong correlations anywhere in the data.
+Let's do a multi-varient analysis to see if there any strong correlations anywhere in the numerical data data.
 
 ```{r}
 cdf <- cdf%>%select(Metascore,User_Compound_Score,Critic_Compound_Score,Release_Year)
@@ -121,3 +125,10 @@ round(cor(cdf), 2)
 Nothing too significant. The most significant data point is the negative relationship between the Year of Release and the User Sentiment Score (-0.58). Implying a miid negative relationship to the User's Sentiment to the game as time has passed. To be honest, this tracks with me since this IP is completely played out and is a soulless micro-transaction title aimed at entry level gamers (rant over).
 
 One thing I would like to test would be to predict the Metascore based on the sentiment values and the year using machine learning in R if possible.
+
+We can visualize this relation ship below over the years.
+
+```{r}
+ggplot(data=cdf) +
+  geom_point(mapping = aes(Release_Year, User_Compound_Score, color=User_Compound_Score))
+```
