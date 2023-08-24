@@ -1,0 +1,95 @@
+---
+title: "Stats in R Assignment"
+author: "Alex Lucchesi"
+date: "2023/05/30"
+output: html_document
+---
+
+## Assignment
+
+For today's assignment, you will be given a blank notebook and a link to the [Call of Duty Dataset](https://www.kaggle.com/datasets/beridzeg45/call-of-duty-reviews) You will need to fill out the notebook and create your own code chunks to run code. Remember that we use this code without any quotation marks to create a code chunk: '`{r} '` \### Your Goal:
+
+To receive credit for today's assignment, you will need to:
+
+-   Import the dataset
+-   Load the dataset into a tibble
+-   Mutate a new column
+-   Create a hypothesis regarding your data and communicate that hypothesis in a scientific method.
+-   Create a notebook that has markdown cells, explaining your code and process/thoughts. **Your markdown should be well thought out and reflect a thorough analysis.**
+-   Clean the data
+-   Explore the data (include visualizations)
+-   Create a statistical test and communicate the results
+
+```{r}
+library(tidyverse)
+library(dplyr)
+```
+
+```{r}
+df <- read.csv('C:/Users/Logan/Documents/GitHub/bootcamp/week_7/day_3/Call of Duty Reviews.csv')
+
+```
+
+```{r}
+clean_cols <- function(x){
+  # Names is an attribute of the dataframe object. That object is the columns.
+  names(x) <- names(x) %>% str_replace_all("\\.", "_")
+  return(x)
+}
+df <- clean_cols(df)
+df %>% summarize(na_count = sum(is.na(df)))
+colSums(is.na(df))
+```
+
+```{r}
+#
+head(df)
+df %>% summarize(na_count = sum((Platform)==''))
+#hmm blanks aren't counted?
+
+filtered_df <- df %>%
+  filter_all(any_vars(is.na(.)))
+
+view(filtered_df)
+```
+
+**Filtering Criteria**
+
+After looking through the data, I want to filter out any NULL score values.
+
+*Why?*
+
+Well I think it is important to only show data that has a valuable metric attached to it so I can look for any meaningful relationships between the score values.
+
+Critic and User scores are both Sentiment Analysis scores based on the reviews where the positive value represents an average positive opinion based on the parsed reviews and negative score means negative.
+
+```{r}
+cdf <- df %>%
+  filter(!is.na(Metascore),!is.na(Critic_Compound_Score))
+cdf
+```
+
+***Is the Metascore at all Impactful to compound user scores?***
+
+```{r}
+cor(cdf$Metascore,cdf$User_Compound_Score)
+```
+
+It would appear the two do not have a strong relationship at all.
+
+```{r}
+
+cor(cdf$Metascore,cdf$Critic_Compound_Score)
+```
+
+There is not a strong relationship between either sentiment analysis to the Metascore on this dataset.
+
+Let's see if there is any strong relationship between the sentiment analysis and the year of release. Are the reviewers trending more positive or negative over the franchise over time.
+
+We need to only have values with years.
+
+```{r}
+cdf <- df %>%
+  filter(!is.na(Metascore),!is.na(Critic_Compound_Score),Release_Year!='')
+cdf
+```
