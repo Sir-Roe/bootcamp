@@ -119,3 +119,5 @@ round(cor(cdf), 2)
 ```
 
 Nothing too significant. The most significant data point is the negative relationship between the Year of Release and the User Sentiment Score (-0.58). Implying a miid negative relationship to the User's Sentiment to the game as time has passed. To be honest, this tracks with me since this IP is completely played out and is a soulless micro-transaction title aimed at entry level gamers (rant over).
+
+One thing I would like to test would be to predict the Metascore based on the sentiment values and the year using machine learning in R if possible.
