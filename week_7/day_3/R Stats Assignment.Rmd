@@ -26,7 +26,7 @@ library(dplyr)
 ```
 
 ```{r}
-df <- read.csv('C:/Users/Logan/Documents/GitHub/bootcamp/week_7/day_3/Call of Duty Reviews.csv')
+df <- read.csv('C:/Users/lmpro/Documents/GitHub/bootcamp/week_7/day_3/Call of Duty Reviews.csv')
 
 ```
 
@@ -63,11 +63,23 @@ Well I think it is important to only show data that has a valuable metric attach
 
 Critic and User scores are both Sentiment Analysis scores based on the reviews where the positive value represents an average positive opinion based on the parsed reviews and negative score means negative.
 
+**My Hypothesis:**
+
+H0: *µ*  MetaScore will not increase based on a better Sentiment User Score
+
+H\`: *µ* MetaScore will increase based on a better Sentiment User Score
+
 ```{r}
 cdf <- df %>%
   filter(!is.na(Metascore),!is.na(Critic_Compound_Score))
 cdf
 ```
+
+```{r}
+summary(lm(cdf$Metascore~cdf$User_Compound_Score))
+```
+
+With a P-Value of .06 we do not have a high enough statistical significance to reject the Null Hypothesis that positive User Sentiment Scoring does not impact the Metascore.
 
 ***Is the Metascore at all Impactful to compound user scores?***
 
@@ -91,5 +103,19 @@ We need to only have values with years.
 ```{r}
 cdf <- df %>%
   filter(!is.na(Metascore),!is.na(Critic_Compound_Score),Release_Year!='')
-cdf
+
 ```
+
+Let's do a multi-varient analysis to see if there any strong correlations anywhere in the data.
+
+```{r}
+cdf <- cdf%>%select(Metascore,User_Compound_Score,Critic_Compound_Score,Release_Year)
+
+cdf$Release_Year <- as.integer(cdf$Release_Year)
+```
+
+```{r}
+round(cor(cdf), 2)
+```
+
+Nothing too significant. The most significant data point is the negative relationship between the Year of Release and the User Sentiment Score (-0.58). Implying a miid negative relationship to the User's Sentiment to the game as time has passed. To be honest, this tracks with me since this IP is completely played out and is a soulless micro-transaction title aimed at entry level gamers (rant over).
