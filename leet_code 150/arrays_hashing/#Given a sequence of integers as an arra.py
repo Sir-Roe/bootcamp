@@ -11,30 +11,23 @@
 #iterate through a list? add a counter for if condition? strictly increasing
 
 def seq(lst):
-    c = 0
+    c = []
 
     for i in range(len(lst)-1):
-        if lst[i] > lst[i+1]:
-            c+=1
-    return c<2
-
-sequence = [1, 3, 2, 1]
-
-sequence = [1, 3, 2],
-
-def solution(se):
-    dropped = False
-    last = prev = min(se) -1
-    for elm in se:
-        if elm <= last:
-            if dropped:
+        if lst[i+1] <= lst[i]:
+            c.append(i+1)
+    print(c)
+    print(len(c))
+    if len(c)>1:
+        return False
+    elif len(c)==1:
+        del lst[c[0]]
+        print(lst)
+        for i in range(len(lst)-1):
+            if lst[i] > lst[i+1]:
                 return False
-            else:
-                dropped = True
-            if elm <= prev:
-                prev = last
-            elif elm > prev:
-                prev = last = elm
-        else:
-            prev, last = last, elm
     return True
+
+
+sequence = [105,924,32,968]
+print(seq(sequence))
